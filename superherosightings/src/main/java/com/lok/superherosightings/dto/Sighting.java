@@ -13,8 +13,8 @@ public class Sighting {
 
     private int id;
     private LocalDate date;
-    private Superhero superheroId;
-    private Location locationId;
+    private Superhero superhero;
+    private Location location;
 
     public int getId() {
         return id;
@@ -32,29 +32,29 @@ public class Sighting {
         this.date = date;
     }
 
-    public Superhero getSuperheroId() {
-        return superheroId;
+    public Superhero getSuperhero() {
+        return superhero;
     }
 
-    public void setSuperheroId(Superhero superheroId) {
-        this.superheroId = superheroId;
+    public void setSuperhero(Superhero superhero) {
+        this.superhero = superhero;
     }
 
-    public Location getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(Location locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + this.id;
-        hash = 47 * hash + Objects.hashCode(this.date);
-        hash = 47 * hash + Objects.hashCode(this.superheroId);
-        hash = 47 * hash + Objects.hashCode(this.locationId);
+        hash = 17 * hash + this.id;
+        hash = 17 * hash + Objects.hashCode(this.date);
+        hash = 17 * hash + Objects.hashCode(this.superhero);
+        hash = 17 * hash + Objects.hashCode(this.location);
         return hash;
     }
 
@@ -76,10 +76,10 @@ public class Sighting {
         if (!Objects.equals(this.date, other.date)) {
             return false;
         }
-        if (!Objects.equals(this.superheroId, other.superheroId)) {
+        if (!Objects.equals(this.superhero, other.superhero)) {
             return false;
         }
-        return Objects.equals(this.locationId, other.locationId);
+        return Objects.equals(this.location, other.location);
     }
 
 }
