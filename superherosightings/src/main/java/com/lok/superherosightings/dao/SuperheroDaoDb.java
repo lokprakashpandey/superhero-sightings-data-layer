@@ -4,7 +4,6 @@
  * date: 2023-03-10
  * purpose: Implementation of SuperheroDao
  */
-
 package com.lok.superherosightings.dao;
 
 import com.lok.superherosightings.dto.Superhero;
@@ -22,13 +21,13 @@ public class SuperheroDaoDb implements SuperheroDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Superhero getSuperheroById(int id) {
         try {
             final String GET_SUPERHERO_BY_ID = "SELECT * FROM superhero WHERE id = ?";
             return jdbc.queryForObject(GET_SUPERHERO_BY_ID, new SuperheroMapper(), id);
-        } catch(DataAccessException ex) {
+        } catch (DataAccessException ex) {
             return null;
         }
     }
@@ -41,13 +40,13 @@ public class SuperheroDaoDb implements SuperheroDao {
 
     @Override
     public Superhero addSuperhero(Superhero superhero) {
-        final String INSERT_SUPERHERO = "INSERT INTO superhero(name, description, superpower) " +
-                "VALUES(?,?,?)";
+        final String INSERT_SUPERHERO = "INSERT INTO superhero(name, description, superpower) "
+                + "VALUES(?,?,?)";
         jdbc.update(INSERT_SUPERHERO,
                 superhero.getName(),
                 superhero.getDescription(),
                 superhero.getSuperpower());
-        
+
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         superhero.setId(newId);
         return superhero;
@@ -55,8 +54,8 @@ public class SuperheroDaoDb implements SuperheroDao {
 
     @Override
     public void updateSuperhero(Superhero superhero) {
-        final String UPDATE_SUPERHERO = "UPDATE superhero SET name = ?, description = ?, " +
-                "superpower = ? WHERE id = ?";
+        final String UPDATE_SUPERHERO = "UPDATE superhero SET name = ?, description = ?, "
+                + "superpower = ? WHERE id = ?";
         jdbc.update(UPDATE_SUPERHERO,
                 superhero.getName(),
                 superhero.getDescription(),
@@ -69,14 +68,14 @@ public class SuperheroDaoDb implements SuperheroDao {
         final String DELETE_SUPERHERO_ORGANIZATION = "DELETE FROM superheroOrganization "
                 + "WHERE superheroId = ?";
         jdbc.update(DELETE_SUPERHERO_ORGANIZATION, id);
-        
+
         final String DELETE_SIGHTING = "DELETE FROM sighting WHERE superheroId = ?";
         jdbc.update(DELETE_SIGHTING, id);
-        
+
         final String DELETE_SUPERHERO = "DELETE FROM superhero WHERE id = ?";
         jdbc.update(DELETE_SUPERHERO, id);
     }
-    
+
     public static final class SuperheroMapper implements RowMapper<Superhero> {
 
         @Override
@@ -86,7 +85,7 @@ public class SuperheroDaoDb implements SuperheroDao {
             superhero.setName(rs.getString("name"));
             superhero.setDescription(rs.getString("description"));
             superhero.setSuperpower(rs.getString("superpower"));
-            
+
             return superhero;
         }
     }
