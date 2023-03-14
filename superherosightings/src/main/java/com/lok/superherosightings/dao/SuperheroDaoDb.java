@@ -65,7 +65,7 @@ public class SuperheroDaoDb implements SuperheroDao {
 
     @Override
     public void deleteSuperheroById(int id) {
-        final String DELETE_SUPERHERO_ORGANIZATION = "DELETE FROM superheroOrganization "
+        final String DELETE_SUPERHERO_ORGANIZATION = "DELETE FROM superhero_organization "
                 + "WHERE superheroId = ?";
         jdbc.update(DELETE_SUPERHERO_ORGANIZATION, id);
 

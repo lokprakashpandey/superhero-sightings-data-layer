@@ -139,8 +139,9 @@ public class LocationDaoDbTest {
         
         Superhero superhero = new Superhero();
         superhero.setName("Spiderman");
-        superhero.setDescription("A young man living in the city");
-        superhero.setSuperpower("Can make webs, climb buildings and have great strength");
+        superhero.setDescription("An ordinary young man in his 20s living in the city");
+        superhero.setSuperpower("Make webs, climb buildings, strong and agile");
+        
         superhero = superheroDao.addSuperhero(superhero);
         
         Sighting sighting = new Sighting();
