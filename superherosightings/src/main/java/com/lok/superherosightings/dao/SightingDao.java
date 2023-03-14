@@ -26,7 +26,7 @@ public interface SightingDao {
     /**
      * Gets all superheroes sighted at a particular location
     */
-    List<Superhero> getAllSuperheroesForLocation(Location location);
+    List<Superhero> getSuperheroesForLocation(Location location);
     
     /**
      * Returns a list of all the locations where a particular superhero has been seen
@@ -34,10 +34,10 @@ public interface SightingDao {
      * @param Superhero superhero for whom to get all locations
      * @return List<Location> contains all locations
     */
-    List<Location> getAllLocationsForSuperhero(Superhero superhero);
+    List<Location> getLocationsForSuperhero(Superhero superhero);
     
     /**
      * Gets all sightings for a particular date
     */
-    List<Sighting> getAllSightingsForParticularDate(LocalDate date);
+    List<Sighting> getSightingsForParticularDate(LocalDate date);
 }

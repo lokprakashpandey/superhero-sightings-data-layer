@@ -15,6 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class SuperheroDaoDb implements SuperheroDao {
@@ -64,6 +65,7 @@ public class SuperheroDaoDb implements SuperheroDao {
     }
 
     @Override
+    @Transactional
     public void deleteSuperheroById(int id) {
         final String DELETE_SUPERHERO_ORGANIZATION = "DELETE FROM superhero_organization "
                 + "WHERE superheroId = ?";
