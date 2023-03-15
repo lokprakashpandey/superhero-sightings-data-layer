@@ -40,6 +40,7 @@ public class SuperheroDaoDb implements SuperheroDao {
     }
 
     @Override
+    @Transactional
     public Superhero addSuperhero(Superhero superhero) {
         final String INSERT_SUPERHERO = "INSERT INTO superhero(name, description, superpower) "
                 + "VALUES(?,?,?)";

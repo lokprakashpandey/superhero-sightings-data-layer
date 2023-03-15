@@ -71,6 +71,7 @@ public class SightingDaoDb implements SightingDao {
     }
 
     @Override
+    @Transactional
     public Sighting addSighting(Sighting sighting) {
         final String INSERT_SIGHTING = "INSERT INTO sighting(date, locationId, superheroId) "
                 + "VALUES(?,?,?)";

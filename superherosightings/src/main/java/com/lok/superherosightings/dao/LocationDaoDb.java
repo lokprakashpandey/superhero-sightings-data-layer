@@ -40,6 +40,7 @@ public class LocationDaoDb implements LocationDao {
     }
 
     @Override
+    @Transactional
     public Location addLocation(Location location) {
         final String INSERT_LOCATION = "INSERT INTO location(name, description, address, latitude, longitude) "
                 + "VALUES(?,?,?,?,?)";
