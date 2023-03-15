@@ -7,6 +7,7 @@
 package com.lok.superherosightings.dao;
 
 import com.lok.superherosightings.dto.Location;
+import com.lok.superherosightings.dto.Organization;
 import com.lok.superherosightings.dto.Sighting;
 import com.lok.superherosightings.dto.Superhero;
 import java.math.BigDecimal;
@@ -30,6 +31,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SightingDaoDbTest {
     
     @Autowired
+    OrganizationDao organizationDao;
+    
+    @Autowired
     SightingDao sightingDao;
     
     @Autowired
@@ -38,14 +42,16 @@ public class SightingDaoDbTest {
     @Autowired
     LocationDao locationDao;
     
-//    @Autowired
-//    OrganizationDao organizationDao;
-//    
     public SightingDaoDbTest() {
     }
     
     @Before
     public void setUp() {
+        
+        List<Organization> organizations = organizationDao.getAllOrganizations();
+        for(Organization organization : organizations) {
+            organizationDao.deleteOrganizationById(organization.getId());
+        }
         
         List<Sighting> sightings = sightingDao.getAllSightings();
         for(Sighting sighting : sightings) {
