@@ -139,7 +139,10 @@ public class OrganizationDaoDb implements OrganizationDao {
         final String SELECT_ORGANIZATIONS_FOR_SUPERHERO = "SELECT o.* FROM organization o "
                 + "JOIN superhero_organization so ON o.id = so.organizationId "
                 + "JOIN superhero s ON s.id = so.superheroId WHERE s.id = ?";
-        return jdbc.query(SELECT_ORGANIZATIONS_FOR_SUPERHERO, new OrganizationMapper(), superhero.getId());
+        List<Organization> organizations = jdbc.query(SELECT_ORGANIZATIONS_FOR_SUPERHERO, 
+                                                new OrganizationMapper(), superhero.getId());
+        associateSuperheroesForOrganizations(organizations);
+        return organizations;
     }
 
 }
