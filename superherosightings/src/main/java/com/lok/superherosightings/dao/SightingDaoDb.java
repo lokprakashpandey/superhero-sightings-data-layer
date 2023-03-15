@@ -4,7 +4,6 @@
  * date: 2023-03-13
  * purpose: SightingDao Implementation
  */
-
 package com.lok.superherosightings.dao;
 
 import com.lok.superherosightings.dao.LocationDaoDb.LocationMapper;
@@ -28,7 +27,7 @@ public class SightingDaoDb implements SightingDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Sighting getSightingById(int id) {
         try {
@@ -43,13 +42,13 @@ public class SightingDaoDb implements SightingDao {
             return null;
         }
     }
-    
+
     private Location getLocationForSighting(int id) {
         final String SELECT_LOCATION_FOR_SIGHTING = "SELECT l.* FROM location l "
                 + "JOIN sighting s ON s.locationId = l.id WHERE s.id = ?";
         return jdbc.queryForObject(SELECT_LOCATION_FOR_SIGHTING, new LocationMapper(), id);
     }
-    
+
     private Superhero getSuperheroForSighting(int id) {
         final String SELECT_SUPERHERO_FOR_SIGHTING = "SELECT su.* FROM superhero su "
                 + "JOIN sighting si ON si.superheroId = su.id WHERE si.id = ?";
@@ -63,7 +62,7 @@ public class SightingDaoDb implements SightingDao {
         associateLocationAndSuperhero(sightings);
         return sightings;
     }
-    
+
     private void associateLocationAndSuperhero(List<Sighting> sightings) {
         for (Sighting sighting : sightings) {
             sighting.setLocation(getLocationForSighting(sighting.getId()));
@@ -89,9 +88,9 @@ public class SightingDaoDb implements SightingDao {
     public void updateSighting(Sighting sighting) {
         final String UPDATE_SIGHTING = "UPDATE sighting SET date = ?, locationId = ?, "
                 + "superheroId = ? WHERE id = ?";
-        jdbc.update(UPDATE_SIGHTING, 
-                sighting.getDate(), 
-                sighting.getLocation().getId(), 
+        jdbc.update(UPDATE_SIGHTING,
+                sighting.getDate(),
+                sighting.getLocation().getId(),
                 sighting.getSuperhero().getId(),
                 sighting.getId());
     }
@@ -112,12 +111,12 @@ public class SightingDaoDb implements SightingDao {
             return sighting;
         }
     }
-    
+
     @Override
     public List<Superhero> getSuperheroesForLocation(Location location) {
         final String SELECT_SUPERHEROES_FOR_LOCATION = "SELECT su.* FROM superhero su JOIN "
                 + "sighting si ON si.superheroId = su.Id WHERE si.locationId = ?";
-        List<Superhero> superheroes = jdbc.query(SELECT_SUPERHEROES_FOR_LOCATION, 
+        List<Superhero> superheroes = jdbc.query(SELECT_SUPERHEROES_FOR_LOCATION,
                 new SuperheroMapper(), location.getId());
         return superheroes;
     }
@@ -126,7 +125,7 @@ public class SightingDaoDb implements SightingDao {
     public List<Location> getLocationsForSuperhero(Superhero superhero) {
         final String SELECT_LOCATIONS_FOR_SUPERHERO = "SELECT l.* FROM location l JOIN "
                 + "sighting s ON s.locationId = l.Id WHERE s.superheroId = ?";
-        List<Location> locations = jdbc.query(SELECT_LOCATIONS_FOR_SUPERHERO, 
+        List<Location> locations = jdbc.query(SELECT_LOCATIONS_FOR_SUPERHERO,
                 new LocationMapper(), superhero.getId());
         return locations;
     }
@@ -134,7 +133,7 @@ public class SightingDaoDb implements SightingDao {
     @Override
     public List<Sighting> getSightingsForParticularDate(LocalDate date) {
         final String SELECT_SIGHTINGS_FOR_PARTICULAR_DATE = "SELECT * FROM sighting WHERE date = ?";
-        List<Sighting> sightings = jdbc.query(SELECT_SIGHTINGS_FOR_PARTICULAR_DATE, 
+        List<Sighting> sightings = jdbc.query(SELECT_SIGHTINGS_FOR_PARTICULAR_DATE,
                 new SightingMapper(), date);
         associateLocationAndSuperhero(sightings);
         return sightings;

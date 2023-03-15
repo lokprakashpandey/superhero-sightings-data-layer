@@ -29,45 +29,45 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class LocationDaoDbTest {
-    
+
     @Autowired
     OrganizationDao organizationDao;
-    
+
     @Autowired
     SightingDao sightingDao;
-    
+
     @Autowired
     SuperheroDao superheroDao;
-    
+
     @Autowired
     LocationDao locationDao;
-    
+
     public LocationDaoDbTest() {
     }
-    
+
     @Before
     public void setUp() {
         List<Organization> organizations = organizationDao.getAllOrganizations();
-        for(Organization organization : organizations) {
+        for (Organization organization : organizations) {
             organizationDao.deleteOrganizationById(organization.getId());
         }
-        
+
         List<Sighting> sightings = sightingDao.getAllSightings();
-        for(Sighting sighting : sightings) {
+        for (Sighting sighting : sightings) {
             sightingDao.deleteSightingById(sighting.getId());
         }
-        
+
         List<Superhero> superheroes = superheroDao.getAllSuperheroes();
-        for(Superhero superhero : superheroes) {
+        for (Superhero superhero : superheroes) {
             superheroDao.deleteSuperheroById(superhero.getId());
         }
-        
+
         List<Location> locations = locationDao.getAllLocations();
         for (Location location : locations) {
             locationDao.deleteLocationById(location.getId());
         }
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -81,10 +81,10 @@ public class LocationDaoDbTest {
         location.setLatitude(new BigDecimal("40.7829"));
         location.setLongitude(new BigDecimal("-73.9654"));
         location = locationDao.addLocation(location);
-        
+
         Location fromDao = locationDao.getLocationById(location.getId());
         assertEquals(location, fromDao);
-        
+
     }
 
     @Test
@@ -96,7 +96,7 @@ public class LocationDaoDbTest {
         location.setLatitude(new BigDecimal("40.7829"));
         location.setLongitude(new BigDecimal("-73.9654"));
         location = locationDao.addLocation(location);
-        
+
         Location location2 = new Location();
         location2.setName("Statue of Liberty");
         location2.setDescription("A national monument in New York Harbor");
@@ -104,9 +104,9 @@ public class LocationDaoDbTest {
         location2.setLatitude(new BigDecimal("40.6892"));
         location2.setLongitude(new BigDecimal("-74.0445"));
         location2 = locationDao.addLocation(location2);
-        
+
         List<Location> locations = locationDao.getAllLocations();
-        
+
         assertEquals(2, locations.size());
         assertTrue(locations.contains(location));
         assertTrue(locations.contains(location2));
@@ -121,18 +121,17 @@ public class LocationDaoDbTest {
         location.setLatitude(new BigDecimal("40.7829"));
         location.setLongitude(new BigDecimal("-73.9654"));
         location = locationDao.addLocation(location);
-        
-        
+
         Location fromDao = locationDao.getLocationById(location.getId());
         assertEquals(location, fromDao);
-        
+
         location.setName("New Ridgeview Park");
         locationDao.updateLocation(location);
-        
+
         assertNotEquals(location, fromDao);
-        
+
         fromDao = locationDao.getLocationById(location.getId());
-        
+
         assertEquals(location, fromDao);
     }
 
@@ -145,26 +144,26 @@ public class LocationDaoDbTest {
         location.setLatitude(new BigDecimal("40.7829"));
         location.setLongitude(new BigDecimal("-73.9654"));
         location = locationDao.addLocation(location);
-        
+
         Superhero superhero = new Superhero();
         superhero.setName("Spiderman");
         superhero.setDescription("An ordinary young man in his 20s living in the city");
         superhero.setSuperpower("Make webs, climb buildings, strong and agile");
         superhero = superheroDao.addSuperhero(superhero);
-        
+
         Sighting sighting = new Sighting();
         sighting.setLocation(location);
         sighting.setDate(LocalDate.now());
         sighting.setSuperhero(superhero);
         sightingDao.addSighting(sighting);
-        
+
         Location fromDao = locationDao.getLocationById(location.getId());
         assertEquals(location, fromDao);
-        
+
         locationDao.deleteLocationById(location.getId());
-        
+
         fromDao = locationDao.getLocationById(location.getId());
         assertNull(fromDao);
     }
-    
+
 }

@@ -17,27 +17,33 @@ import java.util.List;
  * @author root
  */
 public interface SightingDao {
+
     Sighting getSightingById(int id);
+
     List<Sighting> getAllSightings();
+
     Sighting addSighting(Sighting sighting);
+
     void updateSighting(Sighting sighting);
+
     void deleteSightingById(int id);
-    
+
     /**
      * Gets all superheroes sighted at a particular location
-    */
+     */
     List<Superhero> getSuperheroesForLocation(Location location);
-    
+
     /**
-     * Returns a list of all the locations where a particular superhero has been seen
+     * Returns a list of all the locations where a particular superhero has been
+     * seen
      *
      * @param Superhero superhero for whom to get all locations
      * @return List<Location> contains all locations
-    */
+     */
     List<Location> getLocationsForSuperhero(Superhero superhero);
-    
+
     /**
      * Gets all sightings for a particular date
-    */
+     */
     List<Sighting> getSightingsForParticularDate(LocalDate date);
 }

@@ -4,7 +4,6 @@
  * date: 2023-03-13
  * purpose: Implementation class for LocationDao
  */
-
 package com.lok.superherosightings.dao;
 
 import com.lok.superherosightings.dto.Location;
@@ -80,7 +79,7 @@ public class LocationDaoDb implements LocationDao {
         jdbc.update(DELETE_LOCATION, id);
 
     }
-    
+
     public static final class LocationMapper implements RowMapper<Location> {
 
         @Override
@@ -92,7 +91,7 @@ public class LocationDaoDb implements LocationDao {
             location.setAddress(rs.getString("address"));
             location.setLatitude(rs.getBigDecimal("latitude"));
             location.setLongitude(rs.getBigDecimal("longitude"));
-            
+
             return location;
         }
     }
