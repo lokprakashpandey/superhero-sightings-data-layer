@@ -24,10 +24,10 @@ public interface OrganizationDao {
     /**
      * Gets all members(superheroes) for an organization
     */
-    List<Superhero> getAllMembersForOrganization(Organization organization);
+    List<Superhero> getSuperheroesForOrganization(Organization organization);
     
     /**
      * Gets all organizations for Superhero
     */
-    List<Organization> getAllOrganizationsForSuperhero(Superhero superhero);
+    List<Organization> getOrganizationsForSuperhero(Superhero superhero);
 }
